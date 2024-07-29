@@ -37,12 +37,12 @@ services.xserver.xkb.layout = "us";
     inactiveOpacity = 1;
     activeOpacity = 1;
     menuOpacity = 1.0;
-    # backend = "glx";
+    backend = "glx";
     settings = {
       blur = {
-	# method = "dual_kawase";
-	# background = true;
-	strength = 5;
+	method = "dual_kawase";
+	background = true;
+	strength = 2;
     };
   };
 
