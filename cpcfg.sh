@@ -6,6 +6,7 @@ echo "copying base dots"
 cp -r ~/.config/i3 .
 cp -r ~/.config/polybar .
 cp -r ~/.config/nvim .
+cp -r ~/.config/kitty .
 
 echo "done"
 

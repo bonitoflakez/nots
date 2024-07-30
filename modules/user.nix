@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  users.defaultUserShell = pkgs.zsh;
+users.defaultUserShell = pkgs.zsh;
 
   users.users.syk = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-      neovim
       vscode
       zed-editor
 
@@ -18,9 +17,11 @@
 
       rofi
       piper
-      gnome.gnome-tweaks
-      gnome.gnome-shell-extensions
-      gnome.nautilus
+      # gnome.gnome-tweaks
+      # gnome.gnome-shell-extensions
+      # gnome.nautilus
+
+      xfce.thunar
 
       vesktop
 
@@ -57,21 +58,23 @@
       nmap
       ipcalc
 
-      nerdfonts
-
       osu-lazer-bin
 
+      flameshot
       neofetch
-	  htop
+      htop
+
+      zathura
     ];
   };
 
   environment.systemPackages = with pkgs; [
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.gsconnect
-    gnomeExtensions.blur-my-shell
+    tree-sitter
+    # gnomeExtensions.dash-to-dock
+    # gnomeExtensions.gsconnect
+    # gnomeExtensions.blur-my-shell
     openrgb-with-all-plugins
-    wineWowPackages.waylandFull
+    # wineWowPackages.waylandFull
     lxappearance
     nitrogen
     autotiling
@@ -79,11 +82,20 @@
     whitesur-gtk-theme
     mojave-gtk-theme
     gruvbox-gtk-theme
+    kanagawa-gtk-theme
     papirus-icon-theme
     phinger-cursors
+    nerdfonts
     xclip
+    neovim
     vim
     wget
     curl
+
+    # editor plugins
+    luarocks
+    lua-language-server
   ];
+
+fonts.packages = with pkgs;[ nerdfonts ];
 }

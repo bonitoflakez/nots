@@ -13,12 +13,12 @@
     };
 
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-             "spotify"
-	     "vscode"
-	     "google-chrome"
-	     "obsidian"
-	     "osu-lazer-bin"
-	     "nvidia-x11"
-	     "nvidia-settings"
+			"spotify"
+	    "vscode"
+	    "google-chrome"
+	    "obsidian"
+	    "osu-lazer-bin"
+	    "nvidia-x11"
+	    "nvidia-settings"
     ];
 }

@@ -7,10 +7,12 @@
     boot.loader.efi.canTouchEfiVariables = true;
 
     boot.kernelParams = [
+      "nvidia-drm.modset=1"
+      "nvidia-drm.fbdev=1"
       "initcall_blacklist=simpledrm_platform_driver_init"
     ];
 
-    services.xserver.videoDrivers = ["intel" "nvidia"];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware.opengl = {
       enable = true;
@@ -25,7 +27,7 @@
       open = false;
       nvidiaSettings = true;
 
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
 
     hardware.pulseaudio.enable = true;

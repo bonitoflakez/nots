@@ -2,12 +2,12 @@
 
 {
 services.xserver.enable = true;
-services.xserver.desktopManager.gnome.enable = true;
+# services.xserver.desktopManager.gnome.enable = true;
 services.xserver.displayManager.gdm.enable = true;
 
-services.gnome.core-utilities.enable = true;
+services.gnome.core-utilities.enable = false;
 services.gnome.games.enable = false;
-services.gnome.core-developer-tools.enable = true;
+services.gnome.core-developer-tools.enable = false;
 
 services.xserver = {
   windowManager.i3 = {
@@ -36,13 +36,13 @@ services.xserver.xkb.layout = "us";
     fadeDelta = 4 ;
     inactiveOpacity = 1;
     activeOpacity = 1;
-    menuOpacity = 1.0;
+    menuOpacity = 1;
     backend = "glx";
     settings = {
       blur = {
 	method = "dual_kawase";
 	background = true;
-	strength = 2;
+	strength = 2.5;
     };
   };
 
