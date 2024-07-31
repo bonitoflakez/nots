@@ -22,7 +22,7 @@ vim.opt.wrap = false
 vim.opt.smartcase = true
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = "~/.vim/undodir"
+vim.opt.undodir = "/home/syk/.vim/undodir"
 vim.opt.undofile = true
 
 -- Leader Key
@@ -219,7 +219,44 @@ require("lazy").setup({
 			end,
 		},
 	
-		-- LSP Configuration
+		-- CMP Configuration
+		{
+			"hrsh7th/nvim-cmp",
+			requires = {
+    		{'hrsh7th/cmp-nvim-lsp'}, -- LSP source
+    		{'hrsh7th/cmp-buffer'},   -- Buffer source
+    		{'hrsh7th/cmp-path'},     -- Path source
+  		},
+			config = function()
+				require('cmp').setup({
+					sources = {
+						{ name = 'nvim_lsp' },
+						{ name = 'buffer' },
+						{ name = 'path' },
+						{ name = 'cmp_snippet' },
+						{ name = 'cmp_treesitter' },
+					},
+					snippet = {
+						expand = function(args)
+							require('luasnip').lsp_expand(args.body)
+						end,
+					},
+				})
+			end,
+		},
+
+		{
+			'hrsh7th/cmp-nvim-lsp',
+  		requires = {
+    		{'hrsh7th/nvim-cmp'},
+ 			},
+		},
+
+		{
+			'neovim/nvim-lspconfig',
+		},
+
+		-- Finder Configuration
 		{
 			"nvim-telescope/telescope.nvim",
 			dependencies = { 'nvim-lua/plenary.nvim' },
@@ -271,6 +308,47 @@ require("lazy").setup({
   install = { colorscheme = { "habamax" } },
   checker = { enabled = true },
 })
+
+-- CMP languages
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- Lua
+require('lspconfig').lua_ls.setup {
+  capabilities = capabilities,
+}
+
+-- Go
+require('lspconfig').gopls.setup {
+  capabilities = capabilities,
+}
+
+-- JavaScript, ReactJS, TypeScript
+require('lspconfig').tsserver.setup {
+  capabilities = capabilities,
+  init_options = {
+    preferences = {
+      disableSuggestions = false,
+    },
+  },
+}
+
+-- C, C++
+require('lspconfig').clangd.setup {
+  capabilities = capabilities,
+}
+
+-- Rust
+require('lspconfig').rust_analyzer.setup {
+  capabilities = capabilities,
+}
+
+-- Markdown
+require('lspconfig').marksman.setup {
+  capabilities = capabilities,
+}
+
+-- CMP Keybinds
+-- vim.api.nvim_set_keymap('i', '<C-Space>', 'cmp_complete()', { noremap = true, silent = true })
 
 -- Telescope Keybinds
 local builtin = require('telescope.builtin')

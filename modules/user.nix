@@ -3,6 +3,8 @@
 {
 users.defaultUserShell = pkgs.zsh;
 
+nixpkgs.config.enableDynamicLinker = true;
+
   users.users.syk = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
@@ -12,8 +14,9 @@ users.defaultUserShell = pkgs.zsh;
 
       firefox
       google-chrome
-
-	  obsidian
+      chromium
+      
+      obsidian
 
       rofi
       piper
@@ -68,7 +71,7 @@ users.defaultUserShell = pkgs.zsh;
     ];
   };
 
-  environment.systemPackages = with pkgs; [
+environment.systemPackages = with pkgs; [
     tree-sitter
     # gnomeExtensions.dash-to-dock
     # gnomeExtensions.gsconnect
@@ -95,6 +98,7 @@ users.defaultUserShell = pkgs.zsh;
     # editor plugins
     luarocks
     lua-language-server
+    gopls
   ];
 
 fonts.packages = with pkgs;[ nerdfonts ];
