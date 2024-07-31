@@ -72,7 +72,6 @@ nixpkgs.config.enableDynamicLinker = true;
   };
 
 environment.systemPackages = with pkgs; [
-    tree-sitter
     # gnomeExtensions.dash-to-dock
     # gnomeExtensions.gsconnect
     # gnomeExtensions.blur-my-shell
@@ -99,6 +98,12 @@ environment.systemPackages = with pkgs; [
     luarocks
     lua-language-server
     gopls
+    typescript
+    nodePackages.typescript-language-server
+    clang
+    clang-tools
+    marksman
+    rust-analyzer
   ];
 
 fonts.packages = with pkgs;[ nerdfonts ];
