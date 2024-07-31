@@ -18,7 +18,7 @@ vim.opt.relativenumber = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.hidden = true
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.smartcase = true
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -81,7 +81,7 @@ require("lazy").setup({
       config = function()
         require("nvim-tree").setup({
           view = {
-            width = 30,
+						adaptive_size = true,
           },
         })
       end,
@@ -354,9 +354,6 @@ require('lspconfig').marksman.setup {
   capabilities = capabilities,
 }
 
--- CMP Keybinds
--- vim.api.nvim_set_keymap('i', '<C-Space>', 'cmp_complete()', { noremap = true, silent = true })
-
 -- Telescope Keybinds
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -402,6 +399,12 @@ vim.api.nvim_set_keymap("n", "<leader>f", ":NvimTreeFocus<CR>", { noremap = true
 
 -- Clear `/` search pattern
 vim.api.nvim_set_keymap('n', '<leader>c', ':let @/ = ""<CR>', { silent = true })
+
+-- Word Wrapping
+vim.o.textwidth = 0
+vim.o.wrapmargin = 0
+-- visual wrap (no real line cutting is made)
+vim.o.linebreak = true -- breaks by word rather than character
 
 -- Set highlight groups for transparent background
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
