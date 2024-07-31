@@ -42,8 +42,15 @@ services.xserver.xkb.layout = "us";
       blur = {
 	method = "dual_kawase";
 	background = true;
-	strength = 2.5;
+	strength = 10;
     };
+
+    blur-background-exclude = [
+  	"window_type = 'menu'"
+  	"window_type = 'dropdown_menu'"
+  	"window_type = 'popup_menu'"
+  	"window_type = 'tooltip'"
+    ];
   };
 
   wintypes = {
