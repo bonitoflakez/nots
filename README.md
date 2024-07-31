@@ -1,24 +1,48 @@
-# NOTS! - (NixOS Dots)
-
-_is under development_
+<h3 align="center"><em>NOTS! - (NixOS Dots)</em></h3>
 
 ---
 
-NixOS, i3wm, picom, kitty, neovim
+<div align="right"><em>is under development</em></div>
 
-Todo:
+![showcase](https://github.com/user-attachments/assets/908e0dc2-ff4f-446e-8a51-d3cebc201fd6)
 
-- Keybinds for comments
-- Add terminal
-- Setup telescope properly
-- Setup dashboard properly
-- Fix `cmp` issue
+**Using**
 
-Primary Goal:
+- NixOS
+- i3 + picom
+- kitty
+- neovim
 
-- [ ] Setup neovim properly
-- [ ] Setup zathura
+<h3 align="center"><em>Current Todos</em></h3>
+
+---
+
+**Nvim**
+
+  - Keybinds for neovim comments
+  - Add terminal in neovim
+  - Setup telescope properly
+  - Setup dashboard properly
+  - Fix the `cmp` issue
+
+**Nix**
+
+- Setup Zathura
+- Switch to home-manager
+- Start using flakes
+
+**In spare time**
 
 - [ ] Cleanup nix config
 - [ ] Cleanup neovim config
+- [ ] Write installation and setup doc
+
+---
+
+> [!NOTE]  
+> All the configs and scripts are messily written. Check at your own risk.
+
+---
+
+<h4 align="center"><strong><em>More info and updates coming soon</em></strong></h4>
 
