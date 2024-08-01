@@ -29,6 +29,7 @@ nixpkgs.config.enableDynamicLinker = true;
       vesktop
 
       vlc
+      droidcam
       obs-studio
       spotify
 
@@ -37,6 +38,7 @@ nixpkgs.config.enableDynamicLinker = true;
       rustup
       python3
       nodejs
+      corepack
 
       zsh
       unzip
@@ -88,6 +90,13 @@ environment.systemPackages = with pkgs; [
     papirus-icon-theme
     phinger-cursors
     nerdfonts
+    libGL
+    libGLU
+    libglibutil
+    libva-utils
+    v4l-utils
+    android-tools
+    adb-sync
     xclip
     neovim
     vim
@@ -100,7 +109,6 @@ environment.systemPackages = with pkgs; [
     lua-language-server
     gopls
     typescript
-    nodePackages.typescript-language-server
     clang
     clang-tools
     marksman

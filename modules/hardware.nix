@@ -12,6 +12,14 @@
       "initcall_blacklist=simpledrm_platform_driver_init"
     ];
 
+    boot.kernelModules = [
+	"v4l2loopback"
+    ];
+
+    boot.extraModulePackages = [
+	pkgs.linuxPackages.v4l2loopback
+    ];
+
     services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware.opengl = {
