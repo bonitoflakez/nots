@@ -7,6 +7,7 @@ cp -r ~/.config/i3 .
 cp -r ~/.config/polybar .
 cp -r ~/.config/nvim .
 cp -r ~/.config/kitty .
+cp -r ~/.config/zathura .
 
 echo "done"
 

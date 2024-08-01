@@ -93,6 +93,7 @@ environment.systemPackages = with pkgs; [
     vim
     wget
     curl
+    fd
 
     # editor plugins
     luarocks
