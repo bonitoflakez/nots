@@ -19,11 +19,9 @@
 
 **Nvim**
 
-  - Keybinds for neovim comments
   - Add terminal in neovim
   - Setup telescope properly
   - Setup dashboard properly
-  - Fix the `cmp` issue
 
 **Nix**
 
