@@ -19,13 +19,13 @@
 
 **Nvim**
 
-  - Add terminal in neovim
-  - Setup telescope properly
-  - Setup dashboard properly
+- Add terminal in neovim
+- Setup telescope properly
+- Setup dashboard properly
 
 **Nix**
 
-- Setup Zathura
+- Fix obs virtual-cam
 - Switch to home-manager
 - Start using flakes
 
