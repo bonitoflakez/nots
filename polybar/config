@@ -127,7 +127,9 @@ label-empty-padding = 1
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:60:...%
+format = <label>
+label = %class%
+;label = %title:0:60:...%
 
 [module/filesystem]
 type = internal/fs
@@ -141,16 +143,23 @@ label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.disabled}
 
 [module/pulseaudio]
+
 type = internal/pulseaudio
 
-format-volume-prefix = "vol:"
-format-volume-prefix-foreground = ${colors.primary}
-format-volume = <label-volume>
+;List sinks via `pactl list sinks` and look at the Name field
 
-label-volume = %percentage%%
+sink = alsa_output.pci-0000_01_00.1.hdmi-stereo
 
-label-muted = muted
-label-muted-foreground = ${colors.disabled}
+interval = 5
+format-volume-padding = 2
+format-volume = <ramp-volume> <label-volume>
+
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔈
+ramp-volume-2 = 🔈
+
+format-muted-padding = 2
+label-muted = 🔇 0%
 
 [module/xkeyboard]
 type = internal/xkeyboard
