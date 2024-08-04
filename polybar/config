@@ -12,14 +12,6 @@
 ;==========================================================
 
 [colors]
-foreground = $color7
-background = $color0
-background-alt = $color16
-primary = $color1
-secondary = $color2
-alert = $color9
-disabled = $color8
-
 ; Gruvbox Color Palette
 # color0 = #282828
 # color1 = #cc241d
@@ -64,19 +56,19 @@ width = 100%
 height = 20pt
 radius = 0
 
-bottom = true
+bottom = false
 
-; dpi = 96
+dpi = 96
 
-background = ${colors.background}
-foreground = ${colors.foreground}
+background = ${colors.color0}
+foreground = ${colors.color15}
 
 line-size = 2pt
 
 border-size = 0pt
 border-color = #00000000
 
-padding-left = 0
+padding-left = 1
 padding-right = 1
 
 module-margin = 1
@@ -84,7 +76,9 @@ module-margin = 1
 separator = |
 separator-foreground = ${colors.disabled}
 
-font-0 = DejaVu Sans Mono:size=10;1
+font-0 = DejaVu Sans Mono:size=10;2
+font-1 = IPAFont:size=10;2
+font-2 = Kochi Gothic:size=10;2
 
 modules-left = xworkspaces xwindow
 modules-right = filesystem memory cpu eth date systray
@@ -96,7 +90,7 @@ enable-ipc = true
 
 ; wm-restack = generic
 ; wm-restack = bspwm
-; wm-restack = i3
+wm-restack = i3
 
 ; override-redirect = true
 
@@ -105,6 +99,36 @@ type = internal/tray
 
 format-margin = 2pt
 tray-spacing = 4pt
+
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+enable-click = true
+enable-scroll = true
+wrapping-scroll = true
+reverse-scroll = true
+fuzzy-match = true
+format = <label-state> <label-mode>
+; Default: %mode%
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-bg = #008B8B
+label-focused = %name%
+label-focused-fg = #ffffff
+label-focused-bg = #3f3f3f
+label-focused-underline = #fba922
+label-focused-padding = 1
+label-unfocused = %name%
+label-unfocused-padding = 1
+label-visible = %index%
+label-visible-underline = #555555
+label-visible-padding = 1
+label-urgent = %name%
+label-urgent-fg = #000000
+label-urgent-bg = #bd2c40
+label-urgent-padding = 1
 
 [module/xworkspaces]
 type = internal/xworkspaces

@@ -17,6 +17,7 @@ nixpkgs.config.enableDynamicLinker = true;
       chromium
       
       obsidian
+      remmina
 
       rofi
       piper
@@ -115,5 +116,13 @@ environment.systemPackages = with pkgs; [
     rust-analyzer
   ];
 
-fonts.packages = with pkgs;[ nerdfonts ];
+fonts.packages = with pkgs;[ 
+    nerdfonts
+    carlito
+    dejavu_fonts
+    ipafont
+    kochi-substitute
+    source-code-pro
+    ttf_bitstream_vera
+  ];
 }
