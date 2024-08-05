@@ -243,7 +243,15 @@ require("lazy").setup({
 				})
 			end,
 		},
-	
+
+		{
+	"L3MON4D3/LuaSnip",
+	-- follow latest release.
+	version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+	-- install jsregexp (optional!).
+	build = "make install_jsregexp"
+},
+
 		-- CMP Configuration
 		{
 			"hrsh7th/nvim-cmp",
@@ -251,7 +259,7 @@ require("lazy").setup({
     		{'hrsh7th/cmp-nvim-lsp'}, -- LSP source
     		{'hrsh7th/cmp-buffer'},   -- Buffer source
     		{'hrsh7th/cmp-path'},     -- Path source
-				{'saadparwaiz1/cmp_luasnip'}, -- luasnip
+				{'L3MON4D3/LuaSnip'}, -- luasnip
   		},
 			config = function()
 				require('cmp').setup({

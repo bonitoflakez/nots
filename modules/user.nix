@@ -53,6 +53,7 @@ nixpkgs.config.enableDynamicLinker = true;
       file
       which
       tree
+      gnumake
       gawk
       strace
       ltrace
