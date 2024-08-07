@@ -21,14 +21,33 @@ services.xserver = {
   };
 };
 
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+
+    extraConfig.pipewire."92-low-latency" = {
+  	context.properties = {
+    		default.clock.rate = 48000;
+    		default.clock.quantum = 32;
+    		default.clock.min-quantum = 32;
+    	default.clock.max-quantum = 32;
+  };
+};
+  };
+
+  # make pipewire realtime-capable
+  security.rtkit.enable = true;
+
 services.xserver.windowManager.i3.package = pkgs.i3-gaps;
 services.ratbagd.enable = true;
 services.xserver.xkb.layout = "us";
-  services.hardware.openrgb.enable = true;
+services.hardware.openrgb.enable = true;
 
-  services.openssh.enable = true;
+services.openssh.enable = true;
 
-  services.picom = {
+services.picom = {
     enable = true;
     fade = true;
     # vSync = true;

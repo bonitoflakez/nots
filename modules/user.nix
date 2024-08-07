@@ -34,6 +34,8 @@ nixpkgs.config.enableDynamicLinker = true;
       obs-studio
       spotify
 
+      xfce.ristretto
+
       git
       go
       rustup
@@ -82,6 +84,7 @@ environment.systemPackages = with pkgs; [
     openrgb-with-all-plugins
     # wineWowPackages.waylandFull
     lxappearance
+    pavucontrol
     nitrogen
     autotiling
     polybar

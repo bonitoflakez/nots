@@ -81,7 +81,7 @@ font-1 = IPAFont:size=10;2
 font-2 = Kochi Gothic:size=10;2
 
 modules-left = xworkspaces xwindow
-modules-right = filesystem memory cpu eth date systray
+modules-right = filesystem audio memory cpu eth date systray
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -166,24 +166,24 @@ label-mounted = %{F}%mountpoint%%{F-} %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.disabled}
 
-[module/pulseaudio]
+[module/audio]
 
-type = internal/pulseaudio
-
-;List sinks via `pactl list sinks` and look at the Name field
-
-sink = alsa_output.pci-0000_01_00.1.hdmi-stereo
+type = custom/ipc
 
 interval = 5
-format-volume-padding = 2
-format-volume = <ramp-volume> <label-volume>
+label = "vol: %output%"
 
-ramp-volume-0 = 🔈
-ramp-volume-1 = 🔈
-ramp-volume-2 = 🔈
+hook-0 = ~/.config/polybar/scripts/sound.sh
+hook-1 = ~/.config/polybar/scripts/sound.sh up
+hook-2 = ~/.config/polybar/scripts/sound.sh down
+hook-3 = ~/.config/polybar/scripts/sound.sh mute
+hook-4 = sleep 1 && ~/.config/polybar/scripts/sound.sh
+initial = 5
 
-format-muted-padding = 2
-label-muted = 🔇 0%
+scroll-up = exec polybar-msg action "#audio.hook.1"
+scroll-down = exec polybar-msg action "#audio.hook.2"
+click-left = exec polybar-msg action "#audio.hook.3"
+click-right = exec pavucontrol &
 
 [module/xkeyboard]
 type = internal/xkeyboard

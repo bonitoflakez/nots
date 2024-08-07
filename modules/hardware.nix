@@ -38,5 +38,5 @@
       package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
 
-    hardware.pulseaudio.enable = true;
+    hardware.pulseaudio.enable = false;
 }
