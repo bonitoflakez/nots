@@ -168,9 +168,9 @@ label-unmounted-foreground = ${colors.disabled}
 
 [module/audio]
 
-type = custom/ipc
+type = custom/script
 
-interval = 5
+interval = 1
 label = "vol: %output%"
 
 hook-0 = ~/.config/polybar/scripts/sound.sh
@@ -180,9 +180,11 @@ hook-3 = ~/.config/polybar/scripts/sound.sh mute
 hook-4 = sleep 1 && ~/.config/polybar/scripts/sound.sh
 initial = 5
 
-scroll-up = exec polybar-msg action "#audio.hook.1"
-scroll-down = exec polybar-msg action "#audio.hook.2"
-click-left = exec polybar-msg action "#audio.hook.3"
+exec = exec ~/.config/polybar/scripts/sound.sh
+
+scroll-up = exec ~/.config/polybar/scripts/sound.sh up
+scroll-down = exec ~/.config/polybar/scripts/sound.sh down
+click-left = exec ~/.config/polybar/scripts/sound.sh mute
 click-right = exec pavucontrol &
 
 [module/xkeyboard]

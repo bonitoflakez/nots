@@ -68,6 +68,7 @@ nixpkgs.config.enableDynamicLinker = true;
       ipcalc
 
       osu-lazer-bin
+      lutris
 
       flameshot
       neofetch
@@ -82,7 +83,8 @@ environment.systemPackages = with pkgs; [
     # gnomeExtensions.gsconnect
     # gnomeExtensions.blur-my-shell
     openrgb-with-all-plugins
-    # wineWowPackages.waylandFull
+    wineWowPackages.stable
+    winetricks
     lxappearance
     pavucontrol
     nitrogen
@@ -119,6 +121,13 @@ environment.systemPackages = with pkgs; [
     marksman
     rust-analyzer
   ];
+
+programs.steam = {
+  enable = true;
+  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+};
 
 fonts.packages = with pkgs;[ 
     nerdfonts

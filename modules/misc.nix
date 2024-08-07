@@ -13,7 +13,10 @@
     };
 
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-			"spotify"
+	    "spotify"
+	    "steam"
+	    "steam-original"
+	    "steam-run"
 	    "vscode"
 	    "google-chrome"
 	    "obsidian"
