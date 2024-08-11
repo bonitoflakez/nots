@@ -7,15 +7,18 @@ nixpkgs.config.enableDynamicLinker = true;
 
   users.users.syk = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+         "wheel" "disk" "audio" "video" "networkmanager" "systemd-journal"
+	];
     packages = with pkgs; [
       vscode
       zed-editor
+      jetbrains.idea-community
 
       firefox
       google-chrome
       chromium
-      
+
       obsidian
       remmina
 
@@ -31,10 +34,10 @@ nixpkgs.config.enableDynamicLinker = true;
 
       vlc
       droidcam
-      obs-studio
       spotify
 
       xfce.ristretto
+      libreoffice
 
       git
       go
@@ -74,6 +77,10 @@ nixpkgs.config.enableDynamicLinker = true;
       neofetch
       htop
 
+      gdb
+      gef
+      gf
+
       zathura
     ];
   };
@@ -82,7 +89,6 @@ environment.systemPackages = with pkgs; [
     # gnomeExtensions.dash-to-dock
     # gnomeExtensions.gsconnect
     # gnomeExtensions.blur-my-shell
-    openrgb-with-all-plugins
     wineWowPackages.stable
     winetricks
     lxappearance
@@ -118,8 +124,17 @@ environment.systemPackages = with pkgs; [
     typescript
     clang
     clang-tools
+    gcc
     marksman
     rust-analyzer
+
+    (pkgs.wrapOBS {
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+    ];
+  })
   ];
 
 programs.steam = {
@@ -129,7 +144,7 @@ programs.steam = {
   localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
 };
 
-fonts.packages = with pkgs;[ 
+fonts.packages = with pkgs;[
     nerdfonts
     carlito
     dejavu_fonts

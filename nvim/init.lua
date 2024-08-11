@@ -100,6 +100,18 @@ require("lazy").setup({
 			end,
     },
 
+		-- Indent
+		{
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+		config = function()
+			require("ibl").setup()
+		end,
+},
+
     -- Statusline
     {
       "nvim-lualine/lualine.nvim",
@@ -404,6 +416,23 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 local hop = require('hop')
 local directions = require('hop.hint').HintDirection
+
+-- modern autoformat on save
+-- 1
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("lsp", { clear = true }),
+  callback = function(args)
+    -- 2
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      -- 3
+      buffer = args.buf,
+      callback = function()
+        -- 4 + 5
+        vim.lsp.buf.format {async = false, id = args.data.client_id }
+      end,
+    })
+  end
+})
 
 -- Keybindings
 vim.api.nvim_set_keymap("n", "fw", ":HopWord<CR>", { noremap = true, silent = true })
