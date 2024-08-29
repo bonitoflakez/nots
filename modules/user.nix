@@ -44,6 +44,8 @@ nixpkgs.config.enableDynamicLinker = true;
       rustup
       python3
       nodejs
+      zig
+      zls
       corepack
 
       zsh
@@ -94,6 +96,7 @@ environment.systemPackages = with pkgs; [
     lxappearance
     pavucontrol
     nitrogen
+    variety
     autotiling
     polybar
     whitesur-gtk-theme
@@ -119,6 +122,7 @@ environment.systemPackages = with pkgs; [
 
     # editor plugins
     luarocks
+    lua
     lua-language-server
     gopls
     typescript

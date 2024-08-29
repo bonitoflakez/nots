@@ -32,38 +32,38 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    -- Colorscheme
-    {
-      "rebelot/kanagawa.nvim",
-      lazy = false,
-      priority = 1000,
-      config = function()
-        require("kanagawa").setup({
-          compile = false,
-          undercurl = true,
-          commentStyle = { italic = true },
-          functionStyle = {},
-          keywordStyle = { italic = true },
-          statementStyle = { bold = true },
-          typeStyle = {},
-          transparent = true,
-          dimInactive = false,
-          terminalColors = true,
-          colors = {
-            palette = {},
-            theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-          },
-          overrides = function(colors)
-            return {}
-          end,
-          theme = "dragon",
-          background = {
-            dark = "wave",
-            light = "lotus",
-          },
-        })
-      end,
-    },
+    -- -- Colorscheme
+    -- {
+    --   "rebelot/kanagawa.nvim",
+    --   lazy = false,
+    --   priority = 1000,
+    --   config = function()
+    --     require("kanagawa").setup({
+    --       compile = false,
+    --       undercurl = true,
+    --       commentStyle = { italic = true },
+    --       functionStyle = {},
+    --       keywordStyle = { italic = true },
+    --       statementStyle = { bold = true },
+    --       typeStyle = {},
+    --       transparent = true,
+    --       dimInactive = false,
+    --       terminalColors = true,
+    --       colors = {
+    --         palette = {},
+    --         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+    --       },
+    --       overrides = function(colors)
+    --         return {}
+    --       end,
+    --       theme = "dragon",
+    --       background = {
+    --         dark = "dragon",
+    --         light = "lotus",
+    --       },
+    --     })
+    --   end,
+    -- },
 
     -- Icons
     {
@@ -86,6 +86,36 @@ require("lazy").setup({
         })
       end,
     },
+
+		{
+	    'IogaMaster/neocord',
+    	event = "VeryLazy",	
+			config = function()
+			require("neocord").setup({
+    		-- General options
+    		logo                = "auto",                     -- "auto" or url
+    		logo_tooltip        = ":3",          							-- nil or string
+    		main_image          = "language",                 -- "language" or "logo"
+    		client_id           = "1157438221865717891",      -- Use your own Discord application client id (not recommended)
+    		log_level           = nil,                        -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
+    		debounce_timeout    = 10,                         -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
+    		blacklist           = {},                         -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
+    		file_assets         = {},                         -- Custom file asset definitions keyed by file names and extensions (see default config at `lua/presence/file_assets.lua` for reference)
+    		show_time           = false,                      -- Show the timer
+    		global_timer        = false,                      -- if set true, timer won't update when any event are triggered
+
+    		-- Rich Presence text options
+    		editing_text        = "Editing %s",               -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
+    		file_explorer_text  = "Browsing %s",              -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
+    		git_commit_text     = "Committing changes",       -- Format string rendered when committing changes in git (either string or function(filename: string): string)
+    		plugin_manager_text = "Managing plugins",         -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
+    		reading_text        = "Reading %s",               -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
+    		workspace_text      = "Working on %s",            -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
+    		line_number_text    = "Line %s out of %s",        -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
+    		terminal_text       = "Using Terminal",           -- Format string rendered when in terminal mode.
+				})
+			end,
+		},
 
     -- Navigation
     {
@@ -112,6 +142,21 @@ require("lazy").setup({
 		end,
 },
 
+-- barbar
+{
+	'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+    },
+    init = function() vim.g.barbar_auto_setup = false end,
+    opts = {
+      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+      animation = true,
+      insert_at_start = false,
+    },
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  },
     -- Statusline
     {
       "nvim-lualine/lualine.nvim",
@@ -143,14 +188,7 @@ require("lazy").setup({
     					lualine_y = {'progress'},
     					lualine_z = {'location'}
   					},
-  					inactive_sections = {
-    					lualine_a = {''},
-    					lualine_b = {},
-    					lualine_c = {'filename'},
-    					lualine_x = {'location'},
-    					lualine_y = {},
-    					lualine_z = {}
-  					},
+  					inactive_sections = {},
   					tabline = {},
   					winbar = {},
   					inactive_winbar = {},
@@ -174,15 +212,6 @@ require("lazy").setup({
 			version = "*",
     },
 
-    -- Fuzzy Finder
-    {
-      "nvim-telescope/telescope.nvim",
-      lazy = true,
-      dependencies = {
-        { "nvim-lua/plenary.nvim" },
-      },
-    },
-		
 		-- Comment
 		{
 			'numToStr/Comment.nvim',
@@ -363,7 +392,7 @@ require("lazy").setup({
       end,
     },
   },
-  install = { colorscheme = { "habamax" } },
+  install = { colorscheme = { "quiet" } },
   checker = { enabled = true },
 })
 
@@ -404,6 +433,9 @@ require('lspconfig').rust_analyzer.setup {
 require('lspconfig').marksman.setup {
   capabilities = capabilities,
 }
+
+-- Zig (zls)
+require('lspconfig').zls.setup{}
 
 -- Telescope Keybinds
 local builtin = require('telescope.builtin')
@@ -452,8 +484,69 @@ vim.api.nvim_set_keymap("n", "fL", ":HopLineMW<CR>", { noremap = true, silent = 
 vim.api.nvim_set_keymap("n", "fS", ":HopLineStartMW<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "fA", ":HopAnywhereMW<CR>", { noremap = true, silent = true })
 
+-- Clipboard
+
+-- Copy to clipboard
+vim.api.nvim_set_keymap('v', '<leader>y', '"+y', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>Y', '"+yg_', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>y', '"+y', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>yy', '"+yy', { noremap = true })
+
+-- Paste from clipboard
+vim.api.nvim_set_keymap('n', '<leader>p', '"+p', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>P', '"+P', { noremap = true })
+vim.api.nvim_set_keymap('v', '<leader>p', '"+p', { noremap = true })
+vim.api.nvim_set_keymap('v', '<leader>P', '"+P', { noremap = true })
+
 -- Colorscheme
-vim.cmd("colorscheme kanagawa-dragon")
+-- kanagawa-dragon
+vim.cmd("colorscheme quiet")
+
+-- BarBar keybinds
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+-- Move to previous/next
+map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+-- Re-order to previous/next
+map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+-- Goto buffer in position...
+map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+-- Pin/unpin buffer
+map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+-- Close buffer
+map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+-- Wipeout buffer
+--                 :BufferWipeout
+-- Close commands
+--                 :BufferCloseAllButCurrent
+--                 :BufferCloseAllButPinned
+--                 :BufferCloseAllButCurrentOrPinned
+--                 :BufferCloseBuffersLeft
+--                 :BufferCloseBuffersRight
+-- Magic buffer-picking mode
+map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
+-- Sort automatically by...
+map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
+map('n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', opts)
+map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
+map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
+map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
+
+-- Other:
+-- :BarbarEnable - enables barbar (enabled by default)
+-- :BarbarDisable - very bad command, should never be used
 
 -- Mouse Support
 vim.opt.mouse = "a"

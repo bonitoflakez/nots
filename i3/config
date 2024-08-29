@@ -58,7 +58,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run -nb "$kanagawa0" -nf "$kanagawa15" -sb "$kanagawa15" -sf "$kanagawa0"
+bindsym $mod+d exec --no-startup-id dmenu_run -nb "$voidy0" -nf "$voidy15" -sb "$voidy15" -sf "$voidy0"
 
 # bindsym $mod+d exec --no-startup-id rofi -show drun
 # A more modern dmenu replacement is rofi:
@@ -217,11 +217,29 @@ set $kanagawa14 #7aa89f
 set $kanagawa15 #c5c9c5
 set $kanagawa16 #b6927b
 
+set $voidy0 #000000
+set $voidy1 #AAAAAA
+set $voidy2 #AAAAAA
+set $voidy3 #AAAAAA
+set $voidy4 #AAAAAA
+set $voidy5 #AAAAAA
+set $voidy6 #AAAAAA
+set $voidy7 #AAAAAA
+set $voidy8 #444444
+set $voidy9 #FF5555
+set $voidy10 #55FF55
+set $voidy11 #FFFF55
+set $voidy12 #5555FF
+set $voidy13 #FF55FF
+set $voidy14 #55FFFF
+set $voidy15 #FFFFFF
+set $voidy16 #666666
+
 # class                 border          backgr.         text            indicator       child_border
-client.focused          $kanagawa10      $kanagawa0       $kanagawa15      #2e9ef4         $kanagawa10
-client.focused_inactive $kanagawa2       $kanagawa16      $kanagawa7       #484e50         $kanagawa2
-client.unfocused        $kanagawa2       $kanagawa8       $kanagawa0       #292d2e         $kanagawa2
-client.urgent           $kanagawa1       $kanagawa9       $kanagawa15      #900000         $kanagawa1
+client.focused          $voidy10      $voidy0       $voidy15      #2e9ef4         $voidy10
+client.focused_inactive $voidy2       $voidy16      $voidy7       #484e50         $voidy2
+client.unfocused        $voidy2       $voidy8       $voidy0       #292d2e         $voidy2
+client.urgent           $voidy1       $voidy9       $voidy15      #900000         $voidy1
 client.placeholder      #000000         #0c0c0c         #ffffff         #000000         #0c0c0c
 
 # reload the configuration file
