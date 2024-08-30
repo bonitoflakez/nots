@@ -84,6 +84,9 @@ nixpkgs.config.enableDynamicLinker = true;
       gf
 
       zathura
+    
+      
+      qemu
     ];
   };
 
