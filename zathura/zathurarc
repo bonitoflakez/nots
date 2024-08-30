@@ -3,7 +3,7 @@ set selection-clipboard "clipboard"
 
 set font "liberation mono 10"
 
-include kanagawa-theme
+include voidy-theme
 
 set recolor true
 # set recolor-keephue "true"

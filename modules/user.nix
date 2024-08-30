@@ -124,7 +124,6 @@ environment.systemPackages = with pkgs; [
     luarocks
     lua
     lua-language-server
-    gopls
     typescript
     clang
     clang-tools

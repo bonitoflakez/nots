@@ -1,14 +1,14 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--branch=stable",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"--branch=stable",
+		"https://github.com/folke/lazy.nvim.git",
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -31,197 +31,197 @@ vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
 require("lazy").setup({
-  spec = {
-    -- -- Colorscheme
-    -- {
-    --   "rebelot/kanagawa.nvim",
-    --   lazy = false,
-    --   priority = 1000,
-    --   config = function()
-    --     require("kanagawa").setup({
-    --       compile = false,
-    --       undercurl = true,
-    --       commentStyle = { italic = true },
-    --       functionStyle = {},
-    --       keywordStyle = { italic = true },
-    --       statementStyle = { bold = true },
-    --       typeStyle = {},
-    --       transparent = true,
-    --       dimInactive = false,
-    --       terminalColors = true,
-    --       colors = {
-    --         palette = {},
-    --         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-    --       },
-    --       overrides = function(colors)
-    --         return {}
-    --       end,
-    --       theme = "dragon",
-    --       background = {
-    --         dark = "dragon",
-    --         light = "lotus",
-    --       },
-    --     })
-    --   end,
-    -- },
+	spec = {
+		-- -- Colorscheme
+		-- {
+		--   "rebelot/kanagawa.nvim",
+		--   lazy = false,
+		--   priority = 1000,
+		--   config = function()
+		--     require("kanagawa").setup({
+		--       compile = false,
+		--       undercurl = true,
+		--       commentStyle = { italic = true },
+		--       functionStyle = {},
+		--       keywordStyle = { italic = true },
+		--       statementStyle = { bold = true },
+		--       typeStyle = {},
+		--       transparent = true,
+		--       dimInactive = false,
+		--       terminalColors = true,
+		--       colors = {
+		--         palette = {},
+		--         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+		--       },
+		--       overrides = function(colors)
+		--         return {}
+		--       end,
+		--       theme = "dragon",
+		--       background = {
+		--         dark = "dragon",
+		--         light = "lotus",
+		--       },
+		--     })
+		--   end,
+		-- },
 
-    -- Icons
-    {
-      "nvim-tree/nvim-web-devicons",
-      config = function()
-        require("nvim-web-devicons").setup({})
-      end,
-    },
-
-    -- File Explorer
-    {
-      "nvim-tree/nvim-tree.lua",
-      version = "*",
-      lazy = false,
-      config = function()
-        require("nvim-tree").setup({
-          view = {
-						adaptive_size = true,
-          },
-        })
-      end,
-    },
-
+		-- Icons
 		{
-	    'IogaMaster/neocord',
-    	event = "VeryLazy",	
+			"nvim-tree/nvim-web-devicons",
 			config = function()
-			require("neocord").setup({
-    		-- General options
-    		logo                = "auto",                     -- "auto" or url
-    		logo_tooltip        = ":3",          							-- nil or string
-    		main_image          = "language",                 -- "language" or "logo"
-    		client_id           = "1157438221865717891",      -- Use your own Discord application client id (not recommended)
-    		log_level           = nil,                        -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
-    		debounce_timeout    = 10,                         -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
-    		blacklist           = {},                         -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
-    		file_assets         = {},                         -- Custom file asset definitions keyed by file names and extensions (see default config at `lua/presence/file_assets.lua` for reference)
-    		show_time           = false,                      -- Show the timer
-    		global_timer        = false,                      -- if set true, timer won't update when any event are triggered
+				require("nvim-web-devicons").setup({})
+			end,
+		},
 
-    		-- Rich Presence text options
-    		editing_text        = "Editing %s",               -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
-    		file_explorer_text  = "Browsing %s",              -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
-    		git_commit_text     = "Committing changes",       -- Format string rendered when committing changes in git (either string or function(filename: string): string)
-    		plugin_manager_text = "Managing plugins",         -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
-    		reading_text        = "Reading %s",               -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
-    		workspace_text      = "Working on %s",            -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
-    		line_number_text    = "Line %s out of %s",        -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
-    		terminal_text       = "Using Terminal",           -- Format string rendered when in terminal mode.
+		-- File Explorer
+		{
+			"nvim-tree/nvim-tree.lua",
+			version = "*",
+			lazy = false,
+			config = function()
+				require("nvim-tree").setup({
+					view = {
+						adaptive_size = true,
+					},
 				})
 			end,
 		},
 
-    -- Navigation
-    {
-      "phaazon/hop.nvim",
-      lazy = true,
+		{
+			'IogaMaster/neocord',
+			event = "VeryLazy",
+			config = function()
+				require("neocord").setup({
+					-- General options
+					logo                = "auto",           -- "auto" or url
+					logo_tooltip        = ":3",             -- nil or string
+					main_image          = "language",       -- "language" or "logo"
+					client_id           = "1157438221865717891", -- Use your own Discord application client id (not recommended)
+					log_level           = nil,              -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
+					debounce_timeout    = 10,               -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
+					blacklist           = {},               -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
+					file_assets         = {},               -- Custom file asset definitions keyed by file names and extensions (see default config at `lua/presence/file_assets.lua` for reference)
+					show_time           = false,            -- Show the timer
+					global_timer        = false,            -- if set true, timer won't update when any event are triggered
+
+					-- Rich Presence text options
+					editing_text        = "Editing %s",    -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
+					file_explorer_text  = "Browsing %s",   -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
+					git_commit_text     = "Committing changes", -- Format string rendered when committing changes in git (either string or function(filename: string): string)
+					plugin_manager_text = "Managing plugins", -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
+					reading_text        = "Reading %s",    -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
+					workspace_text      = "Working on %s", -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
+					line_number_text    = "Line %s out of %s", -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
+					terminal_text       = "Using Terminal", -- Format string rendered when in terminal mode.
+				})
+			end,
+		},
+
+		-- Navigation
+		{
+			"phaazon/hop.nvim",
+			lazy = true,
 			config = function()
 				require('hop').setup({
 					keys = 'etovxqpdygfblzhckisuran',
 					case_insensitive = true,
-      		multi_windows = true,
+					multi_windows = true,
 				})
 			end,
-    },
+		},
 
 		-- Indent
 		{
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {},
-		config = function()
-			require("ibl").setup()
-		end,
-},
-
--- barbar
-{
-	'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    init = function() vim.g.barbar_auto_setup = false end,
-    opts = {
-      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-      animation = true,
-      insert_at_start = false,
-    },
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  },
-    -- Statusline
-    {
-      "nvim-lualine/lualine.nvim",
+			"lukas-reineke/indent-blankline.nvim",
+			main = "ibl",
+			---@module "ibl"
+			---@type ibl.config
+			opts = {},
 			config = function()
-				require('lualine').setup({
-					  options = {
-    					icons_enabled = true,
-    					theme = 'auto',
-    					component_separators = { left = '', right = ''},
-    					section_separators = { left = '', right = ''},
-    					disabled_filetypes = {
-      					statusline = {},
-      					winbar = {},
-    					},
-    					ignore_focus = {},
-    					always_divide_middle = true,
-    					globalstatus = false,
-    					refresh = {
-      					statusline = 1000,
-      					tabline = 1000,
-      					winbar = 1000,
-    					}
-  					},
-  					sections = {
-    					lualine_a = {'mode'},
-    					lualine_b = {'branch', 'diff', 'diagnostics'},
-    					lualine_c = {'filename'},
-    					lualine_x = {'encoding', 'fileformat', 'filetype'},
-    					lualine_y = {'progress'},
-    					lualine_z = {'location'}
-  					},
-  					inactive_sections = {},
-  					tabline = {},
-  					winbar = {},
-  					inactive_winbar = {},
-  					extensions = {}
-				})
+				require("ibl").setup()
 			end,
-    },
-
-    -- Dashboard
-    {
-      "goolord/alpha-nvim",
-      lazy = true,
-    	config = function ()
-        require'alpha'.setup(require'alpha.themes.dashboard'.config)
-    	end,
 		},
 
-    -- Bufferline
-    {
-      "akinsho/bufferline.nvim",
+		-- barbar
+		{
+			'romgrk/barbar.nvim',
+			dependencies = {
+				'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+				'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+			},
+			init = function() vim.g.barbar_auto_setup = false end,
+			opts = {
+				-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+				animation = true,
+				insert_at_start = false,
+			},
+			version = '^1.0.0', -- optional: only update when a new 1.x version is released
+		},
+		-- Statusline
+		{
+			"nvim-lualine/lualine.nvim",
+			config = function()
+				require('lualine').setup({
+					options = {
+						icons_enabled = true,
+						theme = 'auto',
+						component_separators = { left = '', right = '' },
+						section_separators = { left = '', right = '' },
+						disabled_filetypes = {
+							statusline = {},
+							winbar = {},
+						},
+						ignore_focus = {},
+						always_divide_middle = true,
+						globalstatus = false,
+						refresh = {
+							statusline = 1000,
+							tabline = 1000,
+							winbar = 1000,
+						}
+					},
+					sections = {
+						lualine_a = { 'mode' },
+						lualine_b = { 'branch', 'diff', 'diagnostics' },
+						lualine_c = { 'filename' },
+						lualine_x = { 'encoding', 'fileformat', 'filetype' },
+						lualine_y = { 'progress' },
+						lualine_z = { 'location' }
+					},
+					inactive_sections = {},
+					tabline = {},
+					winbar = {},
+					inactive_winbar = {},
+					extensions = {}
+				})
+			end,
+		},
+
+		-- Dashboard
+		{
+			"goolord/alpha-nvim",
+			lazy = true,
+			config = function()
+				require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+			end,
+		},
+
+		-- Bufferline
+		{
+			"akinsho/bufferline.nvim",
 			version = "*",
-    },
+		},
 
 		-- Comment
 		{
 			'numToStr/Comment.nvim',
-    	opts = {},
+			opts = {},
 			config = function()
 				require('Comment').setup({
 					padding = true, -- add space between comment and the line
 					sticky = true, -- stick cursor to its position
 					ignore = nil, -- lines to ignore while uncomment
-					
+
 					-- toggle mapping in NORMAL mode
 					toggler = {
 						line = 'gcc', -- line comment toggle
@@ -255,53 +255,53 @@ require("lazy").setup({
 			end,
 		},
 
-    -- Treesitter
-    {
-      "nvim-treesitter/nvim-treesitter",
-    	config = function()
+		-- Treesitter
+		{
+			"nvim-treesitter/nvim-treesitter",
+			config = function()
 				require('nvim-treesitter').setup({
-  				ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
-  				sync_install = false,
+					ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+					sync_install = false,
 
-  				auto_install = true,
+					auto_install = true,
 
-  				ignore_install = { "javascript" },
+					ignore_install = { "javascript" },
 
-  				highlight = {
-    				enable = true,
+					highlight = {
+						enable = true,
 
-    				disable = { "c", "rust" },
-    					disable = function(lang, buf)
-        				local max_filesize = 100 * 1024 -- 100 KB
-        				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        				if ok and stats and stats.size > max_filesize then
-            			return true
-        			end
-    			end,
+						disable = { "c", "rust" },
+						disable = function(lang, buf)
+							local max_filesize = 100 * 1024 -- 100 KB
+							local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+							if ok and stats and stats.size > max_filesize then
+								return true
+							end
+						end,
 
-    			additional_vim_regex_highlighting = false,
-  				},
+						additional_vim_regex_highlighting = false,
+					},
 				})
 			end,
 		},
 
 		{
-	"L3MON4D3/LuaSnip",
-	-- follow latest release.
-	version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-	-- install jsregexp (optional!).
-	build = "make install_jsregexp"
-},
+			"L3MON4D3/LuaSnip",
+			-- follow latest release.
+			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+			-- install jsregexp (optional!).
+			build = "make install_jsregexp"
+		},
 
 		-- CMP Configuration
 		{
 			"hrsh7th/nvim-cmp",
 			requires = {
-    		{'hrsh7th/cmp-nvim-lsp'}, -- LSP source
-    		{'hrsh7th/cmp-buffer'},   -- Buffer source
-    		{'hrsh7th/cmp-path'},     -- Path source
-				{'L3MON4D3/LuaSnip'}, -- luasnip
-  		},
+				{ 'hrsh7th/cmp-nvim-lsp' }, -- LSP source
+				{ 'hrsh7th/cmp-buffer' }, -- Buffer source
+				{ 'hrsh7th/cmp-path' }, -- Path source
+				{ 'L3MON4D3/LuaSnip' }, -- luasnip
+			},
 			config = function()
 				require('cmp').setup({
 					sources = {
@@ -318,29 +318,29 @@ require("lazy").setup({
 						end,
 					},
 					mapping = require('cmp').mapping.preset.insert({
-    				['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
-    				['<C-f>'] = require('cmp').mapping.scroll_docs(4),
-    				['<C-Space>'] = require('cmp').mapping.complete(),
-    				['<C-e>'] = require('cmp').mapping.abort(),
-    				['<CR>'] = require('cmp').mapping.confirm({ select = true }),
-  				})
+						['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
+						['<C-f>'] = require('cmp').mapping.scroll_docs(4),
+						['<C-Space>'] = require('cmp').mapping.complete(),
+						['<C-e>'] = require('cmp').mapping.abort(),
+						['<CR>'] = require('cmp').mapping.confirm({ select = true }),
+					})
 				})
 			end,
 		},
 
 		{
 			'neovim/nvim-lspconfig',
-  		requires = {
-    		{'hrsh7th/nvim-cmp'},
-    		{'hrsh7th/cmp-nvim-lsp'},
-  		},
+			requires = {
+				{ 'hrsh7th/nvim-cmp' },
+				{ 'hrsh7th/cmp-nvim-lsp' },
+			},
 		},
 
 		{
 			'hrsh7th/cmp-nvim-lsp',
-  		requires = {
-    		{'hrsh7th/nvim-cmp'},
- 			},
+			requires = {
+				{ 'hrsh7th/nvim-cmp' },
+			},
 		},
 
 		-- Finder Configuration
@@ -352,90 +352,88 @@ require("lazy").setup({
 			end,
 		},
 
-    -- Transparency
-    {
-      "xiyaowong/transparent.nvim",
-      lazy = false,
-      config = function()
-        require("transparent").setup({
-          groups = {
-            "Normal",
-            "NormalNC",
-            "Comment",
-            "Constant",
-            "Special",
-            "Identifier",
-            "Statement",
-            "PreProc",
-            "Type",
-            "Underlined",
-            "Todo",
-            "String",
-            "Function",
-            "Conditional",
-            "Repeat",
-            "Operator",
-            "Structure",
-            "LineNr",
-            "NonText",
-            "SignColumn",
-            "CursorLine",
-            "CursorLineNr",
-            "StatusLine",
-            "StatusLineNC",
-            "EndOfBuffer",
-          },
-          extra_groups = { "NormalFloat", "NvimTreeNormal" },
-          exclude_groups = {},
-        })
-        require("transparent").clear_prefix("NvimTreeNormal")
-      end,
-    },
-  },
-  install = { colorscheme = { "quiet" } },
-  checker = { enabled = true },
+		-- Transparency
+		{
+			"xiyaowong/transparent.nvim",
+			lazy = false,
+			config = function()
+				require("transparent").setup({
+					groups = {
+						"Normal",
+						"NormalNC",
+						"Comment",
+						"Constant",
+						"Special",
+						"Identifier",
+						"Statement",
+						"PreProc",
+						"Type",
+						"Underlined",
+						"Todo",
+						"String",
+						"Function",
+						"Conditional",
+						"Repeat",
+						"Operator",
+						"Structure",
+						"LineNr",
+						"NonText",
+						"SignColumn",
+						"CursorLine",
+						"CursorLineNr",
+						"StatusLine",
+						"StatusLineNC",
+						"EndOfBuffer",
+					},
+					extra_groups = { "NormalFloat", "NvimTreeNormal" },
+					exclude_groups = {},
+				})
+				require("transparent").clear_prefix("NvimTreeNormal")
+			end,
+		},
+	},
+	install = { colorscheme = { "quiet" } },
+	checker = { enabled = true },
 })
 
 -- CMP languages
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Lua
--- require('lspconfig').lua_ls.setup {
---  capabilities = capabilities,
--- }
+require('lspconfig').lua_ls.setup {}
 
 -- Go
 require('lspconfig').gopls.setup {
-  capabilities = capabilities,
+	capabilities = capabilities,
 }
 
 -- JavaScript, ReactJS, TypeScript
 require('lspconfig').tsserver.setup {
-  capabilities = capabilities,
-  init_options = {
-    preferences = {
-      disableSuggestions = false,
-    },
-  },
+	capabilities = capabilities,
+	init_options = {
+		preferences = {
+			disableSuggestions = false,
+		},
+	},
 }
 
 -- C, C++
 require('lspconfig').clangd.setup {
-  capabilities = capabilities,
+	capabilities = capabilities,
 }
 
 -- Rust
 require('lspconfig').rust_analyzer.setup {
-  capabilities = capabilities,
+	capabilities = capabilities,
 }
 
 -- Markdown
 require('lspconfig').marksman.setup {
-  capabilities = capabilities,
+	capabilities = capabilities,
 }
 
 -- Zig (zls)
-require('lspconfig').zls.setup{}
+require('lspconfig').zls.setup {}
 
 -- Telescope Keybinds
 local builtin = require('telescope.builtin')
@@ -452,18 +450,18 @@ local directions = require('hop.hint').HintDirection
 -- modern autoformat on save
 -- 1
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("lsp", { clear = true }),
-  callback = function(args)
-    -- 2
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      -- 3
-      buffer = args.buf,
-      callback = function()
-        -- 4 + 5
-        vim.lsp.buf.format {async = false, id = args.data.client_id }
-      end,
-    })
-  end
+	group = vim.api.nvim_create_augroup("lsp", { clear = true }),
+	callback = function(args)
+		-- 2
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			-- 3
+			buffer = args.buf,
+			callback = function()
+				-- 4 + 5
+				vim.lsp.buf.format { async = false, id = args.data.client_id }
+			end,
+		})
+	end
 })
 
 -- Keybindings
@@ -574,4 +572,3 @@ vim.o.linebreak = true -- breaks by word rather than character
 -- For terminal Neovim (not needed for GUI Neovim)
 -- vim.api.nvim_set_hl(0, "Normal", { ctermbg = "none" })
 -- vim.api.nvim_set_hl(0, "NonText", { ctermbg = "none" })
-
