@@ -8,6 +8,7 @@ cp -r ~/.config/polybar .
 cp -r ~/.config/nvim .
 cp -r ~/.config/kitty .
 cp -r ~/.config/zathura .
+cp -r ~/.tmux.conf .
 
 echo "done"
 

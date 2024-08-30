@@ -47,6 +47,7 @@ nixpkgs.config.enableDynamicLinker = true;
       zig
       zls
       corepack
+      nasm
 
       zsh
       unzip
@@ -84,9 +85,9 @@ nixpkgs.config.enableDynamicLinker = true;
       gf
 
       zathura
-    
       
       qemu
+      tmux
     ];
   };
 
@@ -128,6 +129,7 @@ environment.systemPackages = with pkgs; [
     lua
     lua-language-server
     typescript
+    asm-lsp
     clang
     clang-tools
     gcc

@@ -265,7 +265,7 @@ require("lazy").setup({
 
 					auto_install = true,
 
-					ignore_install = { "javascript" },
+					-- ignore_install = { "javascript" },
 
 					highlight = {
 						enable = true,
@@ -418,22 +418,19 @@ require('lspconfig').tsserver.setup {
 }
 
 -- C, C++
-require('lspconfig').clangd.setup {
-	capabilities = capabilities,
-}
+require('lspconfig').clangd.setup { capabilities = capabilities, }
 
 -- Rust
-require('lspconfig').rust_analyzer.setup {
-	capabilities = capabilities,
-}
+require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
 
 -- Markdown
-require('lspconfig').marksman.setup {
-	capabilities = capabilities,
-}
+require('lspconfig').marksman.setup { capabilities = capabilities }
 
 -- Zig (zls)
-require('lspconfig').zls.setup {}
+require('lspconfig').zls.setup { capabilities = capabilities }
+
+-- Assembly (asm_lsp)
+require('lspconfig').asm_lsp.setup { capabilities = capabilities }
 
 -- Telescope Keybinds
 local builtin = require('telescope.builtin')
