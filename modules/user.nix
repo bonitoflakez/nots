@@ -48,6 +48,10 @@ nixpkgs.config.enableDynamicLinker = true;
       zls
       corepack
       nasm
+      asm-lsp
+      gopls
+      lua-language-server
+
 
       zsh
       unzip
@@ -127,9 +131,7 @@ environment.systemPackages = with pkgs; [
     # editor plugins
     luarocks
     lua
-    lua-language-server
     typescript
-    asm-lsp
     clang
     clang-tools
     gcc

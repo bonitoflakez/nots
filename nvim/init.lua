@@ -24,100 +24,54 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = "/home/syk/.vim/undodir"
 vim.opt.undofile = true
+vim.o.showmode = false
 
 -- Leader Key
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Setup lazy.nvim
+local colors = {
+	dark_grey         = '#333333',
+	medium_dark_grey  = '#555555',
+	black             = '#000000',
+	less_black        = '#232323',
+	white             = '#FFFFFF',
+	medium_grey       = '#777777',
+	medium_light_grey = '#999999',
+	medium_grey       = '#444444',
+}
+
+local bubbles_theme = {
+	normal = {
+		a = { fg = colors.white, bg = colors.medium_grey },
+		b = { fg = colors.white, bg = colors.less_black },
+		c = { fg = colors.white },
+	},
+
+	insert = { a = { fg = colors.white, bg = colors.dark_grey } },
+	visual = { a = { fg = colors.white, bg = colors.medium_dark_grey } },
+	replace = { a = { fg = colors.white, bg = colors.dark_grey } },
+
+	inactive = {
+		a = { fg = colors.dark_grey, bg = colors.medium_light_grey },
+		b = { fg = colors.white, bg = colors.less_black },
+		c = { fg = colors.white },
+	},
+}
+
 require("lazy").setup({
 	spec = {
-		-- -- Colorscheme
-		-- {
-		--   "rebelot/kanagawa.nvim",
-		--   lazy = false,
-		--   priority = 1000,
-		--   config = function()
-		--     require("kanagawa").setup({
-		--       compile = false,
-		--       undercurl = true,
-		--       commentStyle = { italic = true },
-		--       functionStyle = {},
-		--       keywordStyle = { italic = true },
-		--       statementStyle = { bold = true },
-		--       typeStyle = {},
-		--       transparent = true,
-		--       dimInactive = false,
-		--       terminalColors = true,
-		--       colors = {
-		--         palette = {},
-		--         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-		--       },
-		--       overrides = function(colors)
-		--         return {}
-		--       end,
-		--       theme = "dragon",
-		--       background = {
-		--         dark = "dragon",
-		--         light = "lotus",
-		--       },
-		--     })
-		--   end,
-		-- },
-
-		-- Icons
 		{
+			"kdheepak/monochrome.nvim",
+			priority = 1000,
+		},
+		{
+
 			"nvim-tree/nvim-web-devicons",
 			config = function()
 				require("nvim-web-devicons").setup({})
 			end,
 		},
-
-		-- File Explorer
-		{
-			"nvim-tree/nvim-tree.lua",
-			version = "*",
-			lazy = false,
-			config = function()
-				require("nvim-tree").setup({
-					view = {
-						adaptive_size = true,
-					},
-				})
-			end,
-		},
-
-		{
-			'IogaMaster/neocord',
-			event = "VeryLazy",
-			config = function()
-				require("neocord").setup({
-					-- General options
-					logo                = "auto",           -- "auto" or url
-					logo_tooltip        = ":3",             -- nil or string
-					main_image          = "language",       -- "language" or "logo"
-					client_id           = "1157438221865717891", -- Use your own Discord application client id (not recommended)
-					log_level           = nil,              -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
-					debounce_timeout    = 10,               -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
-					blacklist           = {},               -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
-					file_assets         = {},               -- Custom file asset definitions keyed by file names and extensions (see default config at `lua/presence/file_assets.lua` for reference)
-					show_time           = false,            -- Show the timer
-					global_timer        = false,            -- if set true, timer won't update when any event are triggered
-
-					-- Rich Presence text options
-					editing_text        = "Editing %s",    -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
-					file_explorer_text  = "Browsing %s",   -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
-					git_commit_text     = "Committing changes", -- Format string rendered when committing changes in git (either string or function(filename: string): string)
-					plugin_manager_text = "Managing plugins", -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
-					reading_text        = "Reading %s",    -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
-					workspace_text      = "Working on %s", -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
-					line_number_text    = "Line %s out of %s", -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
-					terminal_text       = "Using Terminal", -- Format string rendered when in terminal mode.
-				})
-			end,
-		},
-
-		-- Navigation
 		{
 			"phaazon/hop.nvim",
 			lazy = true,
@@ -129,116 +83,115 @@ require("lazy").setup({
 				})
 			end,
 		},
-
-		-- Indent
 		{
 			"lukas-reineke/indent-blankline.nvim",
 			main = "ibl",
-			---@module "ibl"
-			---@type ibl.config
-			opts = {},
 			config = function()
-				require("ibl").setup()
+				require("ibl").setup({})
 			end,
 		},
-
-		-- barbar
 		{
 			'romgrk/barbar.nvim',
 			dependencies = {
-				'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-				'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+				'lewis6991/gitsigns.nvim', -- for git status
+				'nvim-tree/nvim-web-devicons', -- for file icons
 			},
 			init = function() vim.g.barbar_auto_setup = false end,
 			opts = {
-				-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
 				animation = true,
 				insert_at_start = false,
+				sidebar_filetypes = {
+					NvimTree = true,
+					undotree = {
+						text = 'undotree',
+						align = 'center', -- *optionally* specify an alignment (either 'left', 'center', or 'right')
+					},
+					['neo-tree'] = { event = 'BufWipeout' },
+					Outline = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
+				},
 			},
-			version = '^1.0.0', -- optional: only update when a new 1.x version is released
+			version = '^1.0.0',
 		},
-		-- Statusline
 		{
 			"nvim-lualine/lualine.nvim",
 			config = function()
-				require('lualine').setup({
+				require('lualine').setup {
 					options = {
-						icons_enabled = true,
-						theme = 'auto',
-						component_separators = { left = '', right = '' },
-						section_separators = { left = '', right = '' },
-						disabled_filetypes = {
-							statusline = {},
-							winbar = {},
-						},
-						ignore_focus = {},
-						always_divide_middle = true,
-						globalstatus = false,
-						refresh = {
-							statusline = 1000,
-							tabline = 1000,
-							winbar = 1000,
-						}
+						theme = bubbles_theme,
+						component_separators = '',
+						section_separators = { left = '', right = '' },
 					},
 					sections = {
-						lualine_a = { 'mode' },
-						lualine_b = { 'branch', 'diff', 'diagnostics' },
-						lualine_c = { 'filename' },
-						lualine_x = { 'encoding', 'fileformat', 'filetype' },
-						lualine_y = { 'progress' },
-						lualine_z = { 'location' }
+						lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+						lualine_b = { 'filename', 'branch' },
+						lualine_c = {
+							'%=',
+						},
+						lualine_x = {},
+						lualine_y = { 'filetype', 'progress' },
+						lualine_z = {
+							{ 'location', separator = { right = '' }, left_padding = 2 },
+						},
 					},
-					inactive_sections = {},
+					inactive_sections = {
+						lualine_a = { 'filename' },
+						lualine_b = {},
+						lualine_c = {},
+						lualine_x = {},
+						lualine_y = {},
+						lualine_z = { 'location' },
+					},
 					tabline = {},
-					winbar = {},
-					inactive_winbar = {},
-					extensions = {}
-				})
+					extensions = {},
+					disabled_filetypes = {
+					},
+					ignore_focus = {
+					},
+					globalstatus = true,
+				}
 			end,
 		},
 
-		-- Dashboard
 		{
-			"goolord/alpha-nvim",
-			lazy = true,
+			'goolord/alpha-nvim',
+			dependencies = {
+				'echasnovski/mini.icons',
+				'nvim-lua/plenary.nvim'
+			},
 			config = function()
-				require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
-			end,
+				require 'alpha'.setup(require 'alpha.themes.theta'.config)
+			end
 		},
 
-		-- Bufferline
 		{
 			"akinsho/bufferline.nvim",
 			version = "*",
 		},
 
-		-- Comment
 		{
 			'numToStr/Comment.nvim',
 			opts = {},
 			config = function()
 				require('Comment').setup({
-					padding = true, -- add space between comment and the line
-					sticky = true, -- stick cursor to its position
-					ignore = nil, -- lines to ignore while uncomment
+					padding = true,
+					sticky = true,
+					ignore = nil,
 
-					-- toggle mapping in NORMAL mode
 					toggler = {
-						line = 'gcc', -- line comment toggle
-						block = 'gbc', -- block comment toggle
+						line = 'gcc',
+						block = 'gbc',
 					},
 
-					-- operator-pending mapping in NORMAL and VISUAL mode
 					opleader = {
-						line = 'gc', -- line comment
-						block = 'gb', -- block comment
+						line = 'gc',
+						block = 'gb',
 					},
 
 					-- extra mapping
 					extra = {
-						above = 'gcO', -- add comment on the line above
-						below = 'gco', -- add comment on the line below
-						eol = 'gcA', -- add comment at the end of line
+						above = 'gcO',
+						below = 'gco',
+						eol = 'gcA',
 					},
 
 					-- enable keybinds
@@ -247,21 +200,17 @@ require("lazy").setup({
 						extra = true,
 					},
 
-					-- function to call before (un)comment
 					pre_hook = nil,
-					-- function to call after (un)comment
 					post_hook = nil,
 				})
 			end,
 		},
-
-		-- Treesitter
 		{
 			"nvim-treesitter/nvim-treesitter",
 			config = function()
 				require('nvim-treesitter').setup({
-					ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
-					sync_install = false,
+					ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", },
+					sync_install = true,
 
 					auto_install = true,
 
@@ -270,7 +219,6 @@ require("lazy").setup({
 					highlight = {
 						enable = true,
 
-						disable = { "c", "rust" },
 						disable = function(lang, buf)
 							local max_filesize = 100 * 1024 -- 100 KB
 							local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -284,16 +232,11 @@ require("lazy").setup({
 				})
 			end,
 		},
-
 		{
 			"L3MON4D3/LuaSnip",
-			-- follow latest release.
-			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-			-- install jsregexp (optional!).
+			version = "v2.*",
 			build = "make install_jsregexp"
 		},
-
-		-- CMP Configuration
 		{
 			"hrsh7th/nvim-cmp",
 			requires = {
@@ -327,7 +270,6 @@ require("lazy").setup({
 				})
 			end,
 		},
-
 		{
 			'neovim/nvim-lspconfig',
 			requires = {
@@ -335,15 +277,12 @@ require("lazy").setup({
 				{ 'hrsh7th/cmp-nvim-lsp' },
 			},
 		},
-
 		{
 			'hrsh7th/cmp-nvim-lsp',
 			requires = {
 				{ 'hrsh7th/nvim-cmp' },
 			},
 		},
-
-		-- Finder Configuration
 		{
 			"nvim-telescope/telescope.nvim",
 			dependencies = { 'nvim-lua/plenary.nvim' },
@@ -351,11 +290,10 @@ require("lazy").setup({
 				require('telescope').setup()
 			end,
 		},
-
-		-- Transparency
 		{
 			"xiyaowong/transparent.nvim",
 			lazy = false,
+			priority = 999,
 			config = function()
 				require("transparent").setup({
 					groups = {
@@ -391,10 +329,26 @@ require("lazy").setup({
 				require("transparent").clear_prefix("NvimTreeNormal")
 			end,
 		},
+		{
+			'boganworld/crackboard.nvim',
+			dependencies = { 'nvim-lua/plenary.nvim' },
+			config = function()
+				require('crackboard').setup({
+					session_key = '5ad3531a98c2429b084bb080dbc7639c0e2fb68a2664f9db9c936a71bd5b5cc7',
+				})
+			end,
+		},
 	},
-	install = { colorscheme = { "quiet" } },
+	install = { colorscheme = { "monochrome" } },
 	checker = { enabled = true },
 })
+
+-- Colorscheme
+vim.opt.background = "dark" -- switch between dark or light
+vim.cmd("colorscheme monochrome")
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 
 -- CMP languages
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -440,21 +394,16 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- hop keybinds
-
 local hop = require('hop')
 local directions = require('hop.hint').HintDirection
 
 -- modern autoformat on save
--- 1
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp", { clear = true }),
 	callback = function(args)
-		-- 2
 		vim.api.nvim_create_autocmd("BufWritePre", {
-			-- 3
 			buffer = args.buf,
 			callback = function()
-				-- 4 + 5
 				vim.lsp.buf.format { async = false, id = args.data.client_id }
 			end,
 		})
@@ -493,10 +442,6 @@ vim.api.nvim_set_keymap('n', '<leader>P', '"+P', { noremap = true })
 vim.api.nvim_set_keymap('v', '<leader>p', '"+p', { noremap = true })
 vim.api.nvim_set_keymap('v', '<leader>P', '"+P', { noremap = true })
 
--- Colorscheme
--- kanagawa-dragon
-vim.cmd("colorscheme quiet")
-
 -- BarBar keybinds
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
@@ -523,13 +468,7 @@ map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
 -- Close buffer
 map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
 -- Wipeout buffer
---                 :BufferWipeout
--- Close commands
---                 :BufferCloseAllButCurrent
---                 :BufferCloseAllButPinned
---                 :BufferCloseAllButCurrentOrPinned
---                 :BufferCloseBuffersLeft
---                 :BufferCloseBuffersRight
+
 -- Magic buffer-picking mode
 map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
 -- Sort automatically by...
@@ -539,19 +478,11 @@ map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
 map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
 map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
 
--- Other:
--- :BarbarEnable - enables barbar (enabled by default)
--- :BarbarDisable - very bad command, should never be used
-
 -- Mouse Support
 vim.opt.mouse = "a"
 
 -- Colorscheme
 vim.opt.termguicolors = true
-
--- Nvim-tree Key Mappings
-vim.api.nvim_set_keymap("n", "<leader>t", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>f", ":NvimTreeFocus<CR>", { noremap = true, silent = true })
 
 -- Clear `/` search pattern
 vim.api.nvim_set_keymap('n', '<leader>s', ':let @/ = ""<CR>', { silent = true })
@@ -561,11 +492,3 @@ vim.o.textwidth = 0
 vim.o.wrapmargin = 0
 -- visual wrap (no real line cutting is made)
 vim.o.linebreak = true -- breaks by word rather than character
-
--- Set highlight groups for transparent background
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NonText", { bg = "none" })
-
--- For terminal Neovim (not needed for GUI Neovim)
--- vim.api.nvim_set_hl(0, "Normal", { ctermbg = "none" })
--- vim.api.nvim_set_hl(0, "NonText", { ctermbg = "none" })
