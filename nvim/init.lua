@@ -84,6 +84,37 @@ require("lazy").setup({
 			end,
 		},
 		{
+			"hedyhli/outline.nvim",
+			lazy = true,
+			cmd = { "Outline", "OutlineOpen" },
+			keys = {
+				{ "<leader>o", "<cmd>Outline<CR>", desc = "Toggle outline" },
+			},
+			opts = {},
+			config = function()
+				require("outline").setup({
+					outline_window = {
+						position = 'right',
+						split_command = nil,
+						width = 25,
+						relative_width = true,
+						auto_close = false,
+						auto_jump = false,
+						jump_highlight_duration = 300,
+						center_on_jump = true,
+						show_numbers = false,
+						show_relative_numbers = false,
+						wrap = false,
+						show_cursorline = true,
+						hide_cursor = false,
+						focus_on_open = true,
+						winhl = '',
+					},
+
+				})
+			end,
+		},
+		{
 			"lukas-reineke/indent-blankline.nvim",
 			main = "ibl",
 			config = function()
@@ -334,7 +365,7 @@ require("lazy").setup({
 			dependencies = { 'nvim-lua/plenary.nvim' },
 			config = function()
 				require('crackboard').setup({
-					session_key = '5ad3531a98c2429b084bb080dbc7639c0e2fb68a2664f9db9c936a71bd5b5cc7',
+					session_key = 'crackboard dot dev',
 				})
 			end,
 		},
