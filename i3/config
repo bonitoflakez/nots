@@ -236,9 +236,9 @@ set $voidy15 #FFFFFF
 set $voidy16 #666666
 
 # class                 border          backgr.         text            indicator       child_border
-client.focused          $voidy10      $voidy0       $voidy15      #2e9ef4         $voidy10
-client.focused_inactive $voidy2       $voidy16      $voidy7       #484e50         $voidy2
-client.unfocused        $voidy2       $voidy8       $voidy0       #292d2e         $voidy2
+client.focused          $voidy2      $voidy0       $voidy15      #2e9ef4         $voidy2
+client.focused_inactive $voidy8       $voidy16      $voidy7       #484e50         $voidy8
+client.unfocused        $voidy2       $voidy8       $voidy15       #292d2e         $voidy2
 client.urgent           $voidy1       $voidy9       $voidy15      #900000         $voidy1
 client.placeholder      #000000         #0c0c0c         #ffffff         #000000         #0c0c0c
 

@@ -9,6 +9,7 @@ cp -r ~/.config/nvim .
 cp -r ~/.config/kitty .
 cp -r ~/.config/zathura .
 cp -r ~/.tmux.conf .
+cp -r ~/.config/doom .
 
 echo "done"
 

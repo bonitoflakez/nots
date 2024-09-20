@@ -23,5 +23,6 @@
 	    "osu-lazer-bin"
 	    "nvidia-x11"
 	    "nvidia-settings"
+      "nvidia-persistenced"
     ];
 }

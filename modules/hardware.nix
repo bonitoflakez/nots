@@ -1,24 +1,55 @@
 { config, pkgs, ... }:
 
 {
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.grub.device = true;
-    boot.loader.grub.efiSupport = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+    boot = {
+      loader = {
+        systemd-boot = {
+          enable = true;
+        };
 
-    services.xserver.videoDrivers = [ "nvidia" ];
+        grub = {
+          device = true;
+          efiSupport = true;
+        };
 
-    hardware.graphics.enable = true;
-
-    hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
-      open = false;
-      nvidiaSettings = true;
-
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+        efi = {
+          canTouchEfiVariables = true;
+        };
+      };
     };
 
-    hardware.pulseaudio.enable = false;
+
+    hardware = {
+      graphics = {
+        enable = true;
+      };
+
+      nvidia = {
+        modesetting = {
+          enable = true;
+        };
+
+        powerManagement = {
+          enable = false;
+        };
+
+        powerManagement = {
+          finegrained = false;
+        };
+
+        open = false;
+
+        nvidiaSettings = true;
+
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
+      };
+
+      nvidia-container-toolkit = {
+        enable = true;
+      };
+
+      pulseaudio = {
+        enable = false;
+      };
+    };
 }

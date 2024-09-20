@@ -1,20 +1,22 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"--branch=stable",
-		"https://github.com/folke/lazy.nvim.git",
-		lazypath,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--branch=stable",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- General Settings
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.expandtab = true
+vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.hidden = true
@@ -31,347 +33,353 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 local colors = {
-	dark_grey         = '#333333',
-	medium_dark_grey  = '#555555',
-	black             = '#000000',
-	less_black        = '#232323',
-	white             = '#FFFFFF',
-	medium_grey       = '#777777',
-	medium_light_grey = '#999999',
-	medium_grey       = '#444444',
+  dark_grey         = '#333333',
+  medium_dark_grey  = '#555555',
+  black             = '#000000',
+  less_black        = '#232323',
+  white             = '#FFFFFF',
+  medium_grey       = '#777777',
+  medium_light_grey = '#999999',
+  medium_grey       = '#444444',
 }
 
 local bubbles_theme = {
-	normal = {
-		a = { fg = colors.white, bg = colors.medium_grey },
-		b = { fg = colors.white, bg = colors.less_black },
-		c = { fg = colors.white },
-	},
+  normal = {
+    a = { fg = colors.white, bg = colors.medium_grey },
+    b = { fg = colors.white, bg = colors.less_black },
+    c = { fg = colors.white },
+  },
 
-	insert = { a = { fg = colors.white, bg = colors.dark_grey } },
-	visual = { a = { fg = colors.white, bg = colors.medium_dark_grey } },
-	replace = { a = { fg = colors.white, bg = colors.dark_grey } },
+  insert = { a = { fg = colors.white, bg = colors.dark_grey } },
+  visual = { a = { fg = colors.white, bg = colors.medium_dark_grey } },
+  replace = { a = { fg = colors.white, bg = colors.dark_grey } },
 
-	inactive = {
-		a = { fg = colors.dark_grey, bg = colors.medium_light_grey },
-		b = { fg = colors.white, bg = colors.less_black },
-		c = { fg = colors.white },
-	},
+  inactive = {
+    a = { fg = colors.dark_grey, bg = colors.medium_light_grey },
+    b = { fg = colors.white, bg = colors.less_black },
+    c = { fg = colors.white },
+  },
 }
 
 require("lazy").setup({
-	spec = {
-		{
-			"kdheepak/monochrome.nvim",
-			priority = 1000,
-		},
-		{
+  spec = {
+    {
+      "kdheepak/monochrome.nvim",
+      priority = 1000,
+    },
+    {
 
-			"nvim-tree/nvim-web-devicons",
-			config = function()
-				require("nvim-web-devicons").setup({})
-			end,
-		},
-		{
-			"phaazon/hop.nvim",
-			lazy = true,
-			config = function()
-				require('hop').setup({
-					keys = 'etovxqpdygfblzhckisuran',
-					case_insensitive = true,
-					multi_windows = true,
-				})
-			end,
-		},
-		{
-			"hedyhli/outline.nvim",
-			lazy = true,
-			cmd = { "Outline", "OutlineOpen" },
-			keys = {
-				{ "<leader>o", "<cmd>Outline<CR>", desc = "Toggle outline" },
-			},
-			opts = {},
-			config = function()
-				require("outline").setup({
-					outline_window = {
-						position = 'right',
-						split_command = nil,
-						width = 25,
-						relative_width = true,
-						auto_close = false,
-						auto_jump = false,
-						jump_highlight_duration = 300,
-						center_on_jump = true,
-						show_numbers = false,
-						show_relative_numbers = false,
-						wrap = false,
-						show_cursorline = true,
-						hide_cursor = false,
-						focus_on_open = true,
-						winhl = '',
-					},
+      "nvim-tree/nvim-web-devicons",
+      config = function()
+        require("nvim-web-devicons").setup({})
+      end,
+    },
+    {
+      "phaazon/hop.nvim",
+      lazy = true,
+      config = function()
+        require('hop').setup({
+          keys = 'etovxqpdygfblzhckisuran',
+          case_insensitive = true,
+          multi_windows = true,
+        })
+      end,
+    },
+    {
+      "hedyhli/outline.nvim",
+      lazy = true,
+      cmd = { "Outline", "OutlineOpen" },
+      keys = {
+        { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle outline" },
+      },
+      opts = {},
+      config = function()
+        require("outline").setup({
+          outline_window = {
+            position = 'right',
+            split_command = nil,
+            width = 25,
+            relative_width = true,
+            auto_close = false,
+            auto_jump = false,
+            jump_highlight_duration = 300,
+            center_on_jump = true,
+            show_numbers = false,
+            show_relative_numbers = false,
+            wrap = false,
+            show_cursorline = true,
+            hide_cursor = false,
+            focus_on_open = true,
+            winhl = '',
+          },
 
-				})
-			end,
-		},
-		{
-			"lukas-reineke/indent-blankline.nvim",
-			main = "ibl",
-			config = function()
-				require("ibl").setup({})
-			end,
-		},
-		{
-			'romgrk/barbar.nvim',
-			dependencies = {
-				'lewis6991/gitsigns.nvim', -- for git status
-				'nvim-tree/nvim-web-devicons', -- for file icons
-			},
-			init = function() vim.g.barbar_auto_setup = false end,
-			opts = {
-				animation = true,
-				insert_at_start = false,
-				sidebar_filetypes = {
-					NvimTree = true,
-					undotree = {
-						text = 'undotree',
-						align = 'center', -- *optionally* specify an alignment (either 'left', 'center', or 'right')
-					},
-					['neo-tree'] = { event = 'BufWipeout' },
-					Outline = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
-				},
-			},
-			version = '^1.0.0',
-		},
-		{
-			"nvim-lualine/lualine.nvim",
-			config = function()
-				require('lualine').setup {
-					options = {
-						theme = bubbles_theme,
-						component_separators = '',
-						section_separators = { left = '', right = '' },
-					},
-					sections = {
-						lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
-						lualine_b = { 'filename', 'branch' },
-						lualine_c = {
-							'%=',
-						},
-						lualine_x = {},
-						lualine_y = { 'filetype', 'progress' },
-						lualine_z = {
-							{ 'location', separator = { right = '' }, left_padding = 2 },
-						},
-					},
-					inactive_sections = {
-						lualine_a = { 'filename' },
-						lualine_b = {},
-						lualine_c = {},
-						lualine_x = {},
-						lualine_y = {},
-						lualine_z = { 'location' },
-					},
-					tabline = {},
-					extensions = {},
-					disabled_filetypes = {
-					},
-					ignore_focus = {
-					},
-					globalstatus = true,
-				}
-			end,
-		},
+        })
+      end,
+    },
+    {
+      "lukas-reineke/indent-blankline.nvim",
+      main = "ibl",
+      config = function()
+        require("ibl").setup({})
+      end,
+    },
+    {
+      'romgrk/barbar.nvim',
+      dependencies = {
+        'lewis6991/gitsigns.nvim',     -- for git status
+        'nvim-tree/nvim-web-devicons', -- for file icons
+      },
+      init = function() vim.g.barbar_auto_setup = false end,
+      opts = {
+        animation = true,
+        insert_at_start = false,
+        sidebar_filetypes = {
+          NvimTree = true,
+          undotree = {
+            text = 'undotree',
+            align = 'center', -- *optionally* specify an alignment (either 'left', 'center', or 'right')
+          },
+          ['neo-tree'] = { event = 'BufWipeout' },
+          Outline = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
+        },
+      },
+      version = '^1.0.0',
+    },
+    {
+      "nvim-lualine/lualine.nvim",
+      config = function()
+        require('lualine').setup {
+          options = {
+            theme = bubbles_theme,
+            component_separators = '',
+            section_separators = { left = '', right = '' },
+          },
+          sections = {
+            lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+            lualine_b = { 'filename', 'branch' },
+            lualine_c = {
+              '%=',
+            },
+            lualine_x = {},
+            lualine_y = { 'filetype', 'progress' },
+            lualine_z = {
+              { 'location', separator = { right = '' }, left_padding = 2 },
+            },
+          },
+          inactive_sections = {
+            lualine_a = { 'filename' },
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = { 'location' },
+          },
+          tabline = {},
+          extensions = {},
+          disabled_filetypes = {
+          },
+          ignore_focus = {
+          },
+          globalstatus = true,
+        }
+      end,
+    },
 
-		{
-			'goolord/alpha-nvim',
-			dependencies = {
-				'echasnovski/mini.icons',
-				'nvim-lua/plenary.nvim'
-			},
-			config = function()
-				require 'alpha'.setup(require 'alpha.themes.theta'.config)
-			end
-		},
+    {
+      'goolord/alpha-nvim',
+      dependencies = {
+        'echasnovski/mini.icons',
+        'nvim-lua/plenary.nvim'
+      },
+      config = function()
+        require 'alpha'.setup(require 'alpha.themes.theta'.config)
+      end
+    },
 
-		{
-			"akinsho/bufferline.nvim",
-			version = "*",
-		},
+    {
+      "akinsho/bufferline.nvim",
+      version = "*",
+    },
 
-		{
-			'numToStr/Comment.nvim',
-			opts = {},
-			config = function()
-				require('Comment').setup({
-					padding = true,
-					sticky = true,
-					ignore = nil,
+    {
+      'numToStr/Comment.nvim',
+      opts = {},
+      config = function()
+        require('Comment').setup({
+          padding = true,
+          sticky = true,
+          ignore = nil,
 
-					toggler = {
-						line = 'gcc',
-						block = 'gbc',
-					},
+          toggler = {
+            line = 'gcc',
+            block = 'gbc',
+          },
 
-					opleader = {
-						line = 'gc',
-						block = 'gb',
-					},
+          opleader = {
+            line = 'gc',
+            block = 'gb',
+          },
 
-					-- extra mapping
-					extra = {
-						above = 'gcO',
-						below = 'gco',
-						eol = 'gcA',
-					},
+          -- extra mapping
+          extra = {
+            above = 'gcO',
+            below = 'gco',
+            eol = 'gcA',
+          },
 
-					-- enable keybinds
-					mappings = {
-						basic = true,
-						extra = true,
-					},
+          -- enable keybinds
+          mappings = {
+            basic = true,
+            extra = true,
+          },
 
-					pre_hook = nil,
-					post_hook = nil,
-				})
-			end,
-		},
-		{
-			"nvim-treesitter/nvim-treesitter",
-			config = function()
-				require('nvim-treesitter').setup({
-					ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", },
-					sync_install = true,
+          pre_hook = nil,
+          post_hook = nil,
+        })
+      end,
+    },
+    {
+      "nvim-treesitter/nvim-treesitter",
+      config = function()
+        require('nvim-treesitter').setup({
+          ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", },
+          sync_install = true,
 
-					auto_install = true,
+          auto_install = true,
 
-					-- ignore_install = { "javascript" },
+          -- ignore_install = { "javascript" },
 
-					highlight = {
-						enable = true,
+          highlight = {
+            enable = true,
 
-						disable = function(lang, buf)
-							local max_filesize = 100 * 1024 -- 100 KB
-							local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-							if ok and stats and stats.size > max_filesize then
-								return true
-							end
-						end,
+            disable = function(lang, buf)
+              local max_filesize = 100 * 1024 -- 100 KB
+              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+              if ok and stats and stats.size > max_filesize then
+                return true
+              end
+            end,
 
-						additional_vim_regex_highlighting = false,
-					},
-				})
-			end,
-		},
-		{
-			"L3MON4D3/LuaSnip",
-			version = "v2.*",
-			build = "make install_jsregexp"
-		},
-		{
-			"hrsh7th/nvim-cmp",
-			requires = {
-				{ 'hrsh7th/cmp-nvim-lsp' }, -- LSP source
-				{ 'hrsh7th/cmp-buffer' }, -- Buffer source
-				{ 'hrsh7th/cmp-path' }, -- Path source
-				{ 'L3MON4D3/LuaSnip' }, -- luasnip
-			},
-			config = function()
-				require('cmp').setup({
-					sources = {
-						{ name = 'nvim_lsp' },
-						{ name = 'buffer' },
-						{ name = 'path' },
-						{ name = 'cmp_snippet' },
-						{ name = 'cmp_treesitter' },
-						{ name = 'luasnip' },
-					},
-					snippet = {
-						expand = function(args)
-							require('luasnip').lsp_expand(args.body)
-						end,
-					},
-					mapping = require('cmp').mapping.preset.insert({
-						['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
-						['<C-f>'] = require('cmp').mapping.scroll_docs(4),
-						['<C-Space>'] = require('cmp').mapping.complete(),
-						['<C-e>'] = require('cmp').mapping.abort(),
-						['<CR>'] = require('cmp').mapping.confirm({ select = true }),
-					})
-				})
-			end,
-		},
-		{
-			'neovim/nvim-lspconfig',
-			requires = {
-				{ 'hrsh7th/nvim-cmp' },
-				{ 'hrsh7th/cmp-nvim-lsp' },
-			},
-		},
-		{
-			'hrsh7th/cmp-nvim-lsp',
-			requires = {
-				{ 'hrsh7th/nvim-cmp' },
-			},
-		},
-		{
-			"nvim-telescope/telescope.nvim",
-			dependencies = { 'nvim-lua/plenary.nvim' },
-			config = function()
-				require('telescope').setup()
-			end,
-		},
-		{
-			"xiyaowong/transparent.nvim",
-			lazy = false,
-			priority = 999,
-			config = function()
-				require("transparent").setup({
-					groups = {
-						"Normal",
-						"NormalNC",
-						"Comment",
-						"Constant",
-						"Special",
-						"Identifier",
-						"Statement",
-						"PreProc",
-						"Type",
-						"Underlined",
-						"Todo",
-						"String",
-						"Function",
-						"Conditional",
-						"Repeat",
-						"Operator",
-						"Structure",
-						"LineNr",
-						"NonText",
-						"SignColumn",
-						"CursorLine",
-						"CursorLineNr",
-						"StatusLine",
-						"StatusLineNC",
-						"EndOfBuffer",
-					},
-					extra_groups = { "NormalFloat", "NvimTreeNormal" },
-					exclude_groups = {},
-				})
-				require("transparent").clear_prefix("NvimTreeNormal")
-			end,
-		},
-		{
-			'boganworld/crackboard.nvim',
-			dependencies = { 'nvim-lua/plenary.nvim' },
-			config = function()
-				require('crackboard').setup({
-					session_key = 'crackboard dot dev',
-				})
-			end,
-		},
-	},
-	install = { colorscheme = { "monochrome" } },
-	checker = { enabled = true },
+            additional_vim_regex_highlighting = false,
+          },
+          indent = { enable = true },
+          rainbow = {
+            enable = true,
+            extended_mode = true,
+            max_file_lines = nil,
+          }
+        })
+      end,
+    },
+    {
+      "L3MON4D3/LuaSnip",
+      version = "v2.*",
+      build = "make install_jsregexp"
+    },
+    {
+      "hrsh7th/nvim-cmp",
+      requires = {
+        { 'hrsh7th/cmp-nvim-lsp' }, -- LSP source
+        { 'hrsh7th/cmp-buffer' },   -- Buffer source
+        { 'hrsh7th/cmp-path' },     -- Path source
+        { 'L3MON4D3/LuaSnip' },     -- luasnip
+      },
+      config = function()
+        require('cmp').setup({
+          sources = {
+            { name = 'nvim_lsp' },
+            { name = 'buffer' },
+            { name = 'path' },
+            { name = 'cmp_snippet' },
+            { name = 'cmp_treesitter' },
+            { name = 'luasnip' },
+          },
+          snippet = {
+            expand = function(args)
+              require('luasnip').lsp_expand(args.body)
+            end,
+          },
+          mapping = require('cmp').mapping.preset.insert({
+            ['<C-b>'] = require('cmp').mapping.scroll_docs(-4),
+            ['<C-f>'] = require('cmp').mapping.scroll_docs(4),
+            ['<C-Space>'] = require('cmp').mapping.complete(),
+            ['<C-e>'] = require('cmp').mapping.abort(),
+            ['<CR>'] = require('cmp').mapping.confirm({ select = true }),
+          })
+        })
+      end,
+    },
+    {
+      'neovim/nvim-lspconfig',
+      requires = {
+        { 'hrsh7th/nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lsp' },
+      },
+    },
+    {
+      'hrsh7th/cmp-nvim-lsp',
+      requires = {
+        { 'hrsh7th/nvim-cmp' },
+      },
+    },
+    {
+      "nvim-telescope/telescope.nvim",
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        require('telescope').setup()
+      end,
+    },
+    {
+      "xiyaowong/transparent.nvim",
+      lazy = false,
+      priority = 999,
+      config = function()
+        require("transparent").setup({
+          groups = {
+            "Normal",
+            "NormalNC",
+            "Comment",
+            "Constant",
+            "Special",
+            "Identifier",
+            "Statement",
+            "PreProc",
+            "Type",
+            "Underlined",
+            "Todo",
+            "String",
+            "Function",
+            "Conditional",
+            "Repeat",
+            "Operator",
+            "Structure",
+            "LineNr",
+            "NonText",
+            "SignColumn",
+            "CursorLine",
+            "CursorLineNr",
+            "StatusLine",
+            "StatusLineNC",
+            "EndOfBuffer",
+          },
+          extra_groups = { "NormalFloat", "NvimTreeNormal" },
+          exclude_groups = {},
+        })
+        require("transparent").clear_prefix("NvimTreeNormal")
+      end,
+    },
+    {
+      'boganworld/crackboard.nvim',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        require('crackboard').setup({
+          session_key = '5ad3531a98c2429b084bb080dbc7639c0e2fb68a2664f9db9c936a71bd5b5cc7',
+        })
+      end,
+    },
+  },
+  install = { colorscheme = { "monochrome" } },
+  checker = { enabled = true },
 })
 
 -- Colorscheme
@@ -383,39 +391,70 @@ vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 
 -- CMP languages
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local vsclangserver_capabilities = vim.lsp.protocol.make_client_capabilities()
+vsclangserver_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Lua
 require('lspconfig').lua_ls.setup {}
 
 -- Go
 require('lspconfig').gopls.setup {
-	capabilities = capabilities,
+  capabilities = capabilities,
 }
 
 -- JavaScript, ReactJS, TypeScript
-require('lspconfig').tsserver.setup {
-	capabilities = capabilities,
-	init_options = {
-		preferences = {
-			disableSuggestions = false,
-		},
-	},
+require('lspconfig').ts_ls.setup {
+  capabilities = capabilities,
+  init_options = {
+    preferences = {
+      disableSuggestions = false,
+    },
+  },
+  exclude = {
+    "node_modules"
+  },
+}
+
+-- Tailwind CSS
+require('lspconfig').tailwindcss.setup { capabilities = capabilities }
+
+-- CSS LS
+require('lspconfig').cssls.setup {
+  capabilities = vsclangserver_capabilities,
 }
 
 -- C, C++
 require('lspconfig').clangd.setup { capabilities = capabilities, }
 
 -- Rust
-require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
+require('lspconfig').rust_analyzer.setup {
+  capabilities = capabilities,
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = true,
+      }
+    }
+  }
+}
 
 -- Markdown
-require('lspconfig').marksman.setup { capabilities = capabilities }
+require('lspconfig').marksman.setup { capabilities = capabilities, }
 
 -- Zig (zls)
-require('lspconfig').zls.setup { capabilities = capabilities }
+require('lspconfig').zls.setup { capabilities = capabilities, }
 
 -- Assembly (asm_lsp)
-require('lspconfig').asm_lsp.setup { capabilities = capabilities }
+require('lspconfig').asm_lsp.setup { capabilities = capabilities, }
+
+-- HTML (vscode-langservers-extracted)
+require('lspconfig').html.setup { capabilities = vsclangserver_capabilities, }
+
+-- Svelte (svelte-language-server)
+require('lspconfig').svelte.setup { capabilities = capabilities }
+
+-- Python (pyright)
+require('lspconfig').pyright.setup { capabilities = capabilities }
 
 -- Telescope Keybinds
 local builtin = require('telescope.builtin')
@@ -430,15 +469,15 @@ local directions = require('hop.hint').HintDirection
 
 -- modern autoformat on save
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("lsp", { clear = true }),
-	callback = function(args)
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = args.buf,
-			callback = function()
-				vim.lsp.buf.format { async = false, id = args.data.client_id }
-			end,
-		})
-	end
+  group = vim.api.nvim_create_augroup("lsp", { clear = true }),
+  callback = function(args)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = args.buf,
+      callback = function()
+        vim.lsp.buf.format { async = false, id = args.data.client_id }
+      end,
+    })
+  end
 })
 
 -- Keybindings

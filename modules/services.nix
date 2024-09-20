@@ -1,13 +1,20 @@
 { config, pkgs, ... }:
 
 {
-services.xserver.enable = true;
-# services.xserver.desktopManager.gnome.enable = true;
-services.xserver.displayManager.gdm.enable = true;
+  systemd.services.docker = {
+    wantedBy = [ "multi-user.target" ];
+  };
 
-services.gnome.core-utilities.enable = false;
-services.gnome.games.enable = false;
-services.gnome.core-developer-tools.enable = false;
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  services.xserver.enable = true;
+
+  # services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+
+  services.gnome.core-utilities.enable = false;
+  services.gnome.games.enable = false;
+  services.gnome.core-developer-tools.enable = false;
 
 services.xserver = {
   windowManager.i3 = {
@@ -15,7 +22,7 @@ services.xserver = {
     extraPackages = with pkgs; [
       dmenu
       i3status
-	  i3lock
+      i3lock
       i3blocks
     ];
   };
@@ -28,11 +35,11 @@ services.xserver = {
     pulse.enable = true;
 
     extraConfig.pipewire."92-low-latency" = {
-  	context.properties = {
-    		default.clock.rate = 48000;
-    		default.clock.quantum = 32;
-    		default.clock.min-quantum = 32;
-    	default.clock.max-quantum = 32;
+      context.properties = {
+        default.clock.rate = 48000;
+        default.clock.quantum = 32;
+        default.clock.min-quantum = 32;
+        default.clock.max-quantum = 32;
   };
 };
   };
@@ -59,16 +66,16 @@ services.picom = {
     backend = "glx";
     settings = {
       blur = {
-	method = "dual_kawase";
-	background = true;
-	strength = 10;
+        method = "dual_kawase";
+        background = true;
+        strength = 10;
     };
 
     blur-background-exclude = [
-  	"window_type = 'menu'"
-  	"window_type = 'dropdown_menu'"
-  	"window_type = 'popup_menu'"
-  	"window_type = 'tooltip'"
+      "window_type = 'menu'"
+      "window_type = 'dropdown_menu'"
+      "window_type = 'popup_menu'"
+      "window_type = 'tooltip'"
     ];
   };
 
@@ -80,4 +87,26 @@ services.picom = {
  };
 
   services.printing.enable = true;
+
+  virtualisation = {
+    containers = {
+      enable = true;
+    };
+
+    docker = {
+      enable = true;
+      enableOnBoot = true;
+      storageDriver = "overlay2";
+
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+        daemon.settings = {
+          default-runtime = "nvidia";
+          runtimes.nvidia.path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
+          exec-opts = ["native.cgroupdriver=cgroupfs"];
+        };
+      };
+    };
+  };
 }
